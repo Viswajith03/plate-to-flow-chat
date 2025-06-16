@@ -4,7 +4,6 @@ import ChatHeader from './ChatHeader';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import TypingIndicator from './TypingIndicator';
-import FileUpload from './FileUpload';
 import UploadedFile from './UploadedFile';
 
 interface Message {
@@ -169,8 +168,6 @@ Would you like me to focus on a specific aspect of the demand forecast, such as 
       <ChatHeader />
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        <FileUpload onFileUpload={handleFileUpload} disabled={isTyping || isProcessingFile} />
-        
         {uploadedFile && (
           <UploadedFile
             file={uploadedFile}
@@ -191,7 +188,11 @@ Would you like me to focus on a specific aspect of the demand forecast, such as 
         <div ref={messagesEndRef} />
       </div>
 
-      <ChatInput onSendMessage={handleSendMessage} disabled={isTyping} />
+      <ChatInput 
+        onSendMessage={handleSendMessage} 
+        onFileUpload={handleFileUpload}
+        disabled={isTyping} 
+      />
     </div>
   );
 };
