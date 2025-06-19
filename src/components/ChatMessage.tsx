@@ -26,7 +26,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isBot, timestamp }) 
         <div className="flex flex-col">
           <div className={`px-4 py-3 rounded-2xl shadow-lg backdrop-blur-sm border ${
             isBot 
-              ? 'bg-slate-800/70 border-slate-600/30 text-slate-100' 
+              ? 'bg-gray-900 border-gray-700 text-gray-100' 
               : 'bg-blue-600/80 border-blue-400/30 text-white'
           }`}>
             <p className="text-sm leading-relaxed">{message}</p>

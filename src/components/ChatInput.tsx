@@ -49,7 +49,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, onFileUpload, disa
   };
 
   return (
-    <div className="border-t border-slate-700/50 bg-slate-900/80 backdrop-blur-sm p-4">
+    <div className="border-t border-slate-700/50 bg-black p-4">
       <form onSubmit={handleSubmit} className="flex items-center space-x-3">
         <div className="flex-1 relative">
           <input
