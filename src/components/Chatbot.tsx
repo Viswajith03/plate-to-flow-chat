@@ -241,8 +241,8 @@ const Chatbot: React.FC = () => {
           </div>
         </div>
 
-        {/* Floating Chat Input for Landing Page */}
-        <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-2xl px-8 transition-all duration-700 ease-in-out ${
+        {/* Floating Chat Input for Landing Page - positioned closer to suggestion cards */}
+        <div className={`absolute bottom-16 left-1/2 transform -translate-x-1/2 w-full max-w-xl px-8 transition-all duration-700 ease-in-out ${
           showLanding ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}>
           <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
@@ -265,6 +265,7 @@ const Chatbot: React.FC = () => {
           <AnalysisFlow
             isVisible={showAnalysisFlow}
             onComplete={handleAnalysisComplete}
+            hasUploadedFile={!!uploadedFile}
           />
         </div>
       </div>

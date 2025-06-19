@@ -11,39 +11,52 @@ interface AnalysisStep {
 interface AnalysisFlowProps {
   isVisible: boolean;
   onComplete: () => void;
+  hasUploadedFile?: boolean;
 }
 
-const AnalysisFlow: React.FC<AnalysisFlowProps> = ({ isVisible, onComplete }) => {
+const AnalysisFlow: React.FC<AnalysisFlowProps> = ({ isVisible, onComplete, hasUploadedFile = false }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
-  const steps: AnalysisStep[] = [
-    {
-      title: "Analysis Request Received",
-      description: "Processing your supply chain query",
-      duration: 1000
-    },
-    {
-      title: "Analyzing Data",
-      description: "Examining historical patterns and trends",
-      duration: 2000
-    },
-    {
-      title: "Generating Code",
-      description: "Creating analytical algorithms",
-      duration: 1500
-    },
-    {
-      title: "Training Model",
-      description: "Optimizing predictive models",
-      duration: 2500
-    },
-    {
-      title: "Generating Response",
-      description: "Compiling insights and recommendations",
-      duration: 1500
+  const getSteps = (): AnalysisStep[] => {
+    const baseSteps: AnalysisStep[] = [
+      {
+        title: "Analysis Request Received",
+        description: "Processing your supply chain query",
+        duration: 1000
+      }
+    ];
+
+    if (hasUploadedFile) {
+      baseSteps.push({
+        title: "Analyzing Data",
+        description: "Processing uploaded file and extracting insights",
+        duration: 2000
+      });
     }
-  ];
+
+    baseSteps.push(
+      {
+        title: "Generating Code",
+        description: "Creating analytical algorithms",
+        duration: 1500
+      },
+      {
+        title: "Training Model",
+        description: "Optimizing predictive models",
+        duration: 2500
+      },
+      {
+        title: "Generating Response",
+        description: "Compiling insights and recommendations",
+        duration: 1500
+      }
+    );
+
+    return baseSteps;
+  };
+
+  const steps = getSteps();
 
   useEffect(() => {
     if (!isVisible) {
@@ -73,7 +86,7 @@ const AnalysisFlow: React.FC<AnalysisFlowProps> = ({ isVisible, onComplete }) =>
     };
 
     processSteps();
-  }, [isVisible, onComplete]);
+  }, [isVisible, onComplete, steps.length]);
 
   if (!isVisible) return null;
 
