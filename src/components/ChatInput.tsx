@@ -49,7 +49,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, onFileUpload, disa
   };
 
   return (
-    <div className="border-t border-slate-700/50 bg-black p-4">
+    <div className="p-4">
       <form onSubmit={handleSubmit} className="flex items-center space-x-3">
         <div className="flex-1 relative">
           <input
@@ -59,7 +59,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, onFileUpload, disa
             onKeyPress={handleKeyPress}
             placeholder="Ask about supply chain processes..."
             disabled={disabled}
-            className="w-full px-4 py-3 rounded-full bg-slate-800/60 backdrop-blur-sm border border-slate-600/30 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-3 rounded-full bg-slate-800/60 backdrop-blur-sm border border-slate-600/30 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-400/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
           />
         </div>
         
@@ -68,7 +68,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, onFileUpload, disa
             type="button"
             onClick={handleFileClick}
             disabled={disabled}
-            className="w-12 h-12 bg-slate-700/60 hover:bg-slate-600/60 disabled:bg-slate-800/60 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors duration-200 border border-slate-600/30"
+            className="w-12 h-12 bg-slate-700/60 hover:bg-slate-600/60 disabled:bg-slate-800/60 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 border border-slate-600/30 hover:border-blue-500/50"
             title="Upload Excel or CSV file"
           >
             <Paperclip className="w-5 h-5 text-slate-300" />
@@ -78,7 +78,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, onFileUpload, disa
         <button
           type="submit"
           disabled={!message.trim() || disabled}
-          className="w-12 h-12 bg-blue-600/80 hover:bg-blue-500/80 disabled:bg-slate-700/60 backdrop-blur-sm rounded-full flex items-center justify-center transition-colors duration-200 border border-blue-500/30"
+          className="w-12 h-12 bg-blue-600/80 hover:bg-blue-500/80 disabled:bg-slate-700/60 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 border border-blue-500/30 hover:border-blue-400/50"
         >
           <Send className="w-5 h-5 text-white" />
         </button>

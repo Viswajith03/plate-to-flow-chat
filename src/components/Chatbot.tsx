@@ -18,6 +18,7 @@ interface Message {
 const Chatbot: React.FC = () => {
   const [showLanding, setShowLanding] = useState(true)
   const [showAnalysisFlow, setShowAnalysisFlow] = useState(false)
+  const [chatStarted, setChatStarted] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
@@ -64,6 +65,7 @@ const Chatbot: React.FC = () => {
 
   const handleSuggestionClick = (question: string) => {
     setShowLanding(false)
+    setChatStarted(true)
     setShowAnalysisFlow(true)
     
     // Add user message immediately
@@ -102,6 +104,7 @@ const Chatbot: React.FC = () => {
   const handleFileUpload = async (file: File) => {
     if (showLanding) {
       setShowLanding(false)
+      setChatStarted(true)
     }
     
     setUploadedFile(file)
@@ -146,6 +149,7 @@ const Chatbot: React.FC = () => {
   const handleSendMessage = async (messageText: string) => {
     if (showLanding) {
       setShowLanding(false)
+      setChatStarted(true)
     }
 
     const userMessage: Message = {
@@ -180,54 +184,90 @@ const Chatbot: React.FC = () => {
     }, 6000)
   }
 
-  if (showLanding) {
-    return <LandingPage onSuggestionClick={handleSuggestionClick} />
-  }
-
   return (
-    <div className="flex h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900">
-      {/* Chat Section */}
-      <div className="flex flex-col flex-1">
-        <ChatHeader />
-
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-800">
-          {uploadedFile && (
-            <UploadedFile
-              file={uploadedFile}
-              onRemove={handleRemoveFile}
-              processing={isProcessingFile}
-            />
-          )}
-
-          {messages.map((msg) => (
-            <ChatMessage
-              key={msg.id}
-              message={msg.text}
-              isBot={msg.isBot}
-              timestamp={msg.timestamp}
-            />
-          ))}
-
-          {isTyping && <TypingIndicator />}
-          <div ref={messagesEndRef} />
+    <div className="flex h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-blue-800 overflow-hidden">
+      {/* Main Content Area */}
+      <div className="flex flex-col flex-1 relative">
+        {/* Landing Page with smooth transition */}
+        <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+          showLanding ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}>
+          <LandingPage onSuggestionClick={handleSuggestionClick} />
         </div>
 
-        <ChatInput
-          onSendMessage={handleSendMessage}
-          onFileUpload={handleFileUpload}
-          disabled={isTyping || showAnalysisFlow}
-        />
+        {/* Chat Interface with smooth transition */}
+        <div className={`flex flex-col h-full transition-all duration-700 ease-in-out ${
+          chatStarted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}>
+          {/* Header */}
+          <div className={`transition-all duration-500 ease-in-out ${
+            chatStarted ? 'opacity-100' : 'opacity-0'
+          }`}>
+            <ChatHeader />
+          </div>
+
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {uploadedFile && (
+              <UploadedFile
+                file={uploadedFile}
+                onRemove={handleRemoveFile}
+                processing={isProcessingFile}
+              />
+            )}
+
+            {messages.map((msg) => (
+              <ChatMessage
+                key={msg.id}
+                message={msg.text}
+                isBot={msg.isBot}
+                timestamp={msg.timestamp}
+              />
+            ))}
+
+            {isTyping && <TypingIndicator />}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Chat Input - Always at bottom when chat started */}
+          <div className={`transition-all duration-500 ease-in-out ${
+            chatStarted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
+            <ChatInput
+              onSendMessage={handleSendMessage}
+              onFileUpload={handleFileUpload}
+              disabled={isTyping || showAnalysisFlow}
+            />
+          </div>
+        </div>
+
+        {/* Floating Chat Input for Landing Page */}
+        <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-2xl px-8 transition-all duration-700 ease-in-out ${
+          showLanding ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}>
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+            <ChatInput
+              onSendMessage={handleSendMessage}
+              onFileUpload={handleFileUpload}
+              disabled={isTyping || showAnalysisFlow}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Analysis Flow Section */}
-      {showAnalysisFlow && (
-        <div className="w-96 bg-slate-900/50 backdrop-blur-sm border-l border-slate-700/50 p-4">
+      {/* Analysis Flow Sidebar */}
+      <div className={`transition-all duration-500 ease-in-out ${
+        showAnalysisFlow 
+          ? 'w-96 opacity-100 translate-x-0' 
+          : 'w-0 opacity-0 translate-x-full overflow-hidden'
+      } bg-slate-900/50 backdrop-blur-sm border-l border-slate-700/50`}>
+        <div className="p-4 h-full">
           <AnalysisFlow
             isVisible={showAnalysisFlow}
             onComplete={handleAnalysisComplete}
           />
         </div>
-      )}
+      </div>
     </div>
   )
 }
