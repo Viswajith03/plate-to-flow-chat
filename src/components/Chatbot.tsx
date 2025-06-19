@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import ChatHeader from './ChatHeader';
 import ChatMessage from './ChatMessage';
@@ -17,7 +16,7 @@ const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: "Hello! I'm Farm to Plate FlowIQ, your AI supply chain assistant. I can help you with supply chain optimization, demand forecasting, inventory management, and logistics planning. Upload an Excel or CSV file for demand forecasting analysis, or ask me any supply chain questions!",
+      text: "Hello! I'm Farm to Plate SCM Engine, your AI supply chain assistant. I can help you with supply chain optimization, demand forecasting, inventory management, and logistics planning. Upload an Excel or CSV file for demand forecasting analysis, or ask me any supply chain questions!",
       isBot: true,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     }
@@ -164,7 +163,7 @@ Would you like me to focus on a specific aspect of the demand forecast, such as 
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900">
       <ChatHeader />
       
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
