@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react'
 import ChatHeader from './ChatHeader'
 import ChatMessage from './ChatMessage'
@@ -192,7 +191,29 @@ const Chatbot: React.FC = () => {
         <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${
           showLanding ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}>
-          <LandingPage onSuggestionClick={handleSuggestionClick} />
+          <div className="flex flex-col h-full">
+            {/* Header Section with embedded chatbar */}
+            <div className="text-center pt-8 pb-4 animate-fade-in">
+              <h1 className="text-6xl font-bold text-white mb-4">Farm to Plate SCM Engine</h1>
+              <p className="text-xl text-blue-200 mb-8">Your intelligent supply chain management assistant.</p>
+              
+              {/* Chatbar positioned below title */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                  <ChatInput
+                    onSendMessage={handleSendMessage}
+                    onFileUpload={handleFileUpload}
+                    disabled={isTyping || showAnalysisFlow}
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Landing Page Content below chatbar */}
+            <div className="flex-1 px-8">
+              <LandingPage onSuggestionClick={handleSuggestionClick} />
+            </div>
+          </div>
         </div>
 
         {/* Chat Interface with smooth transition */}
@@ -233,19 +254,6 @@ const Chatbot: React.FC = () => {
           <div className={`transition-all duration-500 ease-in-out ${
             chatStarted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            <ChatInput
-              onSendMessage={handleSendMessage}
-              onFileUpload={handleFileUpload}
-              disabled={isTyping || showAnalysisFlow}
-            />
-          </div>
-        </div>
-
-        {/* Floating Chat Input for Landing Page - positioned closer to suggestion cards */}
-        <div className={`absolute bottom-16 left-1/2 transform -translate-x-1/2 w-full max-w-xl px-8 transition-all duration-700 ease-in-out ${
-          showLanding ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}>
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
             <ChatInput
               onSendMessage={handleSendMessage}
               onFileUpload={handleFileUpload}
