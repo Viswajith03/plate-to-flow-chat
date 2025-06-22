@@ -104,66 +104,68 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSuggestionClick }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen p-8">
+    <div className="flex flex-col min-h-screen">
       {/* Header Section */}
-      <div className="text-center mb-12 animate-fade-in">
+      <div className="text-center pt-8 pb-4 animate-fade-in">
         <h1 className="text-6xl font-bold text-white mb-4">Farm to Plate SCM Engine</h1>
-        <p className="text-xl text-blue-200">Your intelligent supply chain management assistant.</p>
+        <p className="text-xl text-blue-200 mb-8">Your intelligent supply chain management assistant.</p>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 max-w-6xl mx-auto w-full">
-        {!selectedCard ? (
-          /* Suggestion Cards Grid */
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
-            {suggestions.map((suggestion, index) => (
-              <div
-                key={index}
-                onClick={() => handleCardClick(suggestion)}
-                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 hover:bg-white/20 hover:scale-105 transition-all duration-300 cursor-pointer group animate-fade-in w-full max-w-xs"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="flex flex-col items-center text-center space-y-3">
-                  <div className="text-blue-300 group-hover:text-white transition-colors">
-                    {suggestion.icon}
-                  </div>
-                  <h3 className="text-sm font-semibold text-white">{suggestion.title}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          /* Questions List */
-          <div className="max-w-4xl mx-auto animate-fade-in">
-            <div className="flex items-center mb-8">
-              <button
-                onClick={handleBackClick}
-                className="mr-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/20"
-              >
-                <ArrowLeft className="w-5 h-5 text-white" />
-              </button>
-              <div className="flex items-center space-x-3">
-                <div className="text-blue-300">
-                  {selectedCard.icon}
-                </div>
-                <h2 className="text-2xl font-bold text-white">{selectedCard.title}</h2>
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              {selectedCard.questions.map((question, index) => (
+      {/* Main Content Area - Centered */}
+      <div className="flex-1 flex items-center justify-center px-8">
+        <div className="w-full max-w-4xl mx-auto">
+          {!selectedCard ? (
+            /* Suggestion Cards Grid - Centered */
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
+              {suggestions.map((suggestion, index) => (
                 <div
                   key={index}
-                  onClick={() => handleQuestionClick(question)}
-                  className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 hover:bg-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer animate-fade-in"
+                  onClick={() => handleCardClick(suggestion)}
+                  className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 hover:bg-white/20 hover:scale-105 transition-all duration-300 cursor-pointer group animate-fade-in w-full max-w-xs"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <p className="text-white text-sm leading-relaxed">{question}</p>
+                  <div className="flex flex-col items-center text-center space-y-2">
+                    <div className="text-blue-300 group-hover:text-white transition-colors">
+                      {suggestion.icon}
+                    </div>
+                    <h3 className="text-xs font-semibold text-white">{suggestion.title}</h3>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          ) : (
+            /* Questions List - Centered */
+            <div className="animate-fade-in">
+              <div className="flex items-center justify-center mb-8">
+                <button
+                  onClick={handleBackClick}
+                  className="mr-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/20"
+                >
+                  <ArrowLeft className="w-5 h-5 text-white" />
+                </button>
+                <div className="flex items-center space-x-3">
+                  <div className="text-blue-300">
+                    {selectedCard.icon}
+                  </div>
+                  <h2 className="text-2xl font-bold text-white">{selectedCard.title}</h2>
+                </div>
+              </div>
+              
+              <div className="space-y-4 max-w-2xl mx-auto">
+                {selectedCard.questions.map((question, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleQuestionClick(question)}
+                    className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 hover:bg-white/20 hover:scale-[1.02] transition-all duration-300 cursor-pointer animate-fade-in"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <p className="text-white text-sm leading-relaxed">{question}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
