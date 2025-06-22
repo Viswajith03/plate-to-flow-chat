@@ -1,13 +1,9 @@
 
 import React from 'react';
-import Chatbot from '../components/Chatbot';
+import { Navigate } from 'react-router-dom';
 
 const Index = () => {
-  return (
-    <div className="h-screen">
-      <Chatbot />
-    </div>
-  );
+  return <Navigate to="/" replace />;
 };
 
 export default Index;
