@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react'
 import ChatHeader from './ChatHeader'
 import ChatMessage from './ChatMessage'
@@ -191,26 +192,28 @@ const Chatbot: React.FC = () => {
         <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${
           showLanding ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}>
-          <div className="flex flex-col h-full items-center justify-center">
-            {/* Centered Header Section with title and chatbar */}
-            <div className="text-center mb-8 animate-fade-in">
-              <h1 className="text-6xl font-bold text-white mb-4">Farm to Plate SCM Engine</h1>
-              <p className="text-xl text-blue-200 mb-8">Your intelligent supply chain management assistant.</p>
-              
-              {/* Centered Chatbar */}
-              <div className="flex justify-center">
-                <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                  <ChatInput
-                    onSendMessage={handleSendMessage}
-                    onFileUpload={handleFileUpload}
-                    disabled={isTyping || showAnalysisFlow}
-                  />
+          <div className="flex flex-col h-full items-center justify-center px-8">
+            <div className="w-full max-w-4xl mx-auto">
+              {/* Centered Header Section with title and chatbar */}
+              <div className="text-center mb-12 animate-fade-in">
+                <h1 className="text-6xl font-bold text-white mb-4">Farm to Plate SCM Engine</h1>
+                <p className="text-xl text-blue-200 mb-8">Your intelligent supply chain management assistant.</p>
+                
+                {/* Centered Chatbar */}
+                <div className="flex justify-center mb-12">
+                  <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                    <ChatInput
+                      onSendMessage={handleSendMessage}
+                      onFileUpload={handleFileUpload}
+                      disabled={isTyping || showAnalysisFlow}
+                    />
+                  </div>
                 </div>
               </div>
+              
+              {/* Landing Page Content - Suggestion Cards */}
+              <LandingPage onSuggestionClick={handleSuggestionClick} />
             </div>
-            
-            {/* Landing Page Content - Suggestion Cards */}
-            <LandingPage onSuggestionClick={handleSuggestionClick} />
           </div>
         </div>
 
