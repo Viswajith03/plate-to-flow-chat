@@ -21,36 +21,38 @@ const Chat = () => {
   } = useChat();
 
   return (
-    <div className="flex h-screen gradient-bg">
-      {/* Main Content Area */}
-      <div className="flex flex-col flex-1 relative gradient-content min-w-0">
-        {/* Header */}
-        <ChatHeader />
+    <div className="h-screen gradient-bg">
+      <div className="flex h-full">
+        {/* Main Content Area */}
+        <div className="flex flex-col flex-1 relative gradient-content min-w-0">
+          {/* Header */}
+          <ChatHeader />
 
-        {/* Messages Area */}
-        <ChatMessages
-          messages={messages}
-          isTyping={isTyping}
-          uploadedFile={uploadedFile}
-          isProcessingFile={isProcessingFile}
-          onRemoveFile={handleRemoveFile}
-          messagesEndRef={messagesEndRef}
-        />
+          {/* Messages Area */}
+          <ChatMessages
+            messages={messages}
+            isTyping={isTyping}
+            uploadedFile={uploadedFile}
+            isProcessingFile={isProcessingFile}
+            onRemoveFile={handleRemoveFile}
+            messagesEndRef={messagesEndRef}
+          />
 
-        {/* Chat Input */}
-        <ChatInput
-          onSendMessage={handleSendMessage}
-          onFileUpload={handleFileUpload}
-          disabled={isTyping || showAnalysisFlow}
+          {/* Chat Input */}
+          <ChatInput
+            onSendMessage={handleSendMessage}
+            onFileUpload={handleFileUpload}
+            disabled={isTyping || showAnalysisFlow}
+          />
+        </div>
+
+        {/* Analysis Flow Sidebar */}
+        <AnalysisSidebar
+          showAnalysisFlow={showAnalysisFlow}
+          hasUploadedFile={!!uploadedFile}
+          onComplete={handleAnalysisComplete}
         />
       </div>
-
-      {/* Analysis Flow Sidebar */}
-      <AnalysisSidebar
-        showAnalysisFlow={showAnalysisFlow}
-        hasUploadedFile={!!uploadedFile}
-        onComplete={handleAnalysisComplete}
-      />
     </div>
   );
 };

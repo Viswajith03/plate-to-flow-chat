@@ -25,7 +25,7 @@ const Landing = () => {
         <div className="w-full max-w-4xl mx-auto">
           {/* Centered Header Section with title and chatbar */}
           <div className="text-center mb-12 animate-fade-in">
-            <h1 className="text-6xl font-bold text-white mb-4">Farm to Plate SCM Engine</h1>
+            <h1 className="text-6xl font-bold text-white mb-4">SCM AI Engine</h1>
             <p className="text-xl text-blue-200 mb-8">Your intelligent supply chain management assistant.</p>
             
             {/* Centered Chatbar */}
