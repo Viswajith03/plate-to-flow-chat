@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ChatHeader from '../components/ChatHeader';
@@ -202,9 +201,9 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-blue-800 overflow-hidden">
+    <div className="flex h-screen gradient-bg">
       {/* Main Content Area */}
-      <div className="flex flex-col flex-1 relative">
+      <div className="flex flex-col flex-1 relative gradient-content">
         {/* Header */}
         <ChatHeader />
 

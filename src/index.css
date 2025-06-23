@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -100,4 +101,42 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom gradient background */
+.gradient-bg {
+  position: relative;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d2d4a 100%);
+  overflow: hidden;
+}
+
+.gradient-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #61b2ff40 0%, #61b2ff20 30%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-bg::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #fd97bb40 0%, #fd97bb20 30%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-content {
+  position: relative;
+  z-index: 1;
 }

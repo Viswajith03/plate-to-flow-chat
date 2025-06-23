@@ -20,8 +20,8 @@ const Landing = () => {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-blue-800 overflow-hidden">
-      <div className="flex flex-col h-full items-center justify-center px-8">
+    <div className="h-screen gradient-bg">
+      <div className="flex flex-col h-full items-center justify-center px-8 gradient-content">
         <div className="w-full max-w-4xl mx-auto">
           {/* Centered Header Section with title and chatbar */}
           <div className="text-center mb-12 animate-fade-in">
