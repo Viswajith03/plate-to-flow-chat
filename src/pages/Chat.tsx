@@ -203,7 +203,7 @@ const Chat = () => {
   return (
     <div className="flex h-screen gradient-bg">
       {/* Main Content Area */}
-      <div className="flex flex-col flex-1 relative gradient-content">
+      <div className="flex flex-col flex-1 relative gradient-content min-w-0">
         {/* Header */}
         <ChatHeader />
 
