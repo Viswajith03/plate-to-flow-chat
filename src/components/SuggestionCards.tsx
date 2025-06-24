@@ -1,6 +1,13 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from './ui/carousel';
 
 interface SuggestionCard {
   title: string;
@@ -80,37 +87,48 @@ const SuggestionCards: React.FC<SuggestionCardsProps> = ({ onQuestionClick }) =>
       <h3 className="text-xl font-semibold text-white mb-4">
         Suggested Analysis Questions
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {suggestionCards.map((card, index) => (
-          <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden">
-            <button
-              onClick={() => toggleCard(index)}
-              className="w-full p-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
-            >
-              <h4 className="text-sm font-medium text-white">{card.title}</h4>
-              {expandedCard === index ? (
-                <ChevronDown className="w-4 h-4 text-white" />
-              ) : (
-                <ChevronRight className="w-4 h-4 text-white" />
-              )}
-            </button>
-            
-            {expandedCard === index && (
-              <div className="px-4 pb-4 space-y-2">
-                {card.questions.map((question, qIndex) => (
-                  <button
-                    key={qIndex}
-                    onClick={() => onQuestionClick(question)}
-                    className="w-full text-left p-2 text-sm text-blue-200 hover:text-white hover:bg-white/10 rounded transition-colors"
-                  >
-                    {question}
-                  </button>
-                ))}
+      <Carousel
+        opts={{
+          align: "start",
+        }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-2 md:-ml-4">
+          {suggestionCards.map((card, index) => (
+            <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden h-full">
+                <button
+                  onClick={() => toggleCard(index)}
+                  className="w-full p-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+                >
+                  <h4 className="text-sm font-medium text-white">{card.title}</h4>
+                  {expandedCard === index ? (
+                    <ChevronDown className="w-4 h-4 text-white" />
+                  ) : (
+                    <ChevronRight className="w-4 h-4 text-white" />
+                  )}
+                </button>
+                
+                {expandedCard === index && (
+                  <div className="px-4 pb-4 space-y-2">
+                    {card.questions.map((question, qIndex) => (
+                      <button
+                        key={qIndex}
+                        onClick={() => onQuestionClick(question)}
+                        className="w-full text-left p-2 text-sm text-blue-200 hover:text-white hover:bg-white/10 rounded transition-colors"
+                      >
+                        {question}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ))}
-      </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
     </div>
   );
 };
