@@ -43,7 +43,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSuggestionClick }) => {
       disabled: true
     },
     {
-      title: "anomaly detection",
+      title: "Anomaly Detection",
       icon: <Search className="w-6 h-6" />,
       route: "/anomaly-detection",
       disabled: true
@@ -72,11 +72,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSuggestionClick }) => {
     <div className="w-full max-w-6xl mx-auto">
       {/* Example prompt section */}
       <div className="mb-8">
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-center">
-          <p className="text-white text-lg">
-            Ex: Can you forecast demand for Alphonso Mangoes for the month of July for Mumbai? , Upload your data
-          </p>
-        </div>
+        
       </div>
 
       {/* Cards Grid */}

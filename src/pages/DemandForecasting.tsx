@@ -1,3 +1,4 @@
+// src/pages/DemandForecasting.tsx
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -19,27 +20,31 @@ const DemandForecasting = () => {
     handleSendMessage,
     handleFileUpload,
     handleRemoveFile,
-    handleAnalysisComplete
+    handleAnalysisComplete,
   } = useChat();
 
   return (
-    <div className="h-screen gradient-bg">
-      <div className="flex h-full">
-        <div className="flex flex-col flex-1 relative gradient-content min-w-0">
-          {/* Header with Go Back button - moved down with padding */}
-          <div className="flex items-center justify-between p-8 pb-4">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 text-white" />
-              <span className="text-white">Go Back to Main Menu</span>
-            </button>
-            <h1 className="text-3xl font-bold text-white">Demand Forecasting</h1>
-            <div className="w-48"></div> {/* Spacer for center alignment */}
-          </div>
-
-          {/* Messages Area */}
+    <div className="h-screen flex bg-gradient-to-br from-[#1E1F38] to-[#2E2649]">
+      {/* Main chat column */}
+      <div className="flex flex-col flex-1 gradient-content min-w-0">
+        
+        {/* 1) Header */}
+        <header className="flex items-center justify-between px-6 py-4 bg-transparent">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center space-x-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 text-white" />
+            <span className="text-white text-sm">Go Back</span>
+          </button>
+          <h1 className="text-lg font-semibold text-white">
+            Demand Forecasting
+          </h1>
+          <div className="w-12" /> {/* spacer */}
+        </header>
+        
+        {/* 2) Messages (scrollable) */}
+        <main className="flex-1 overflow-y-auto px-6">
           <ChatMessages
             messages={messages}
             isTyping={isTyping}
@@ -48,22 +53,24 @@ const DemandForecasting = () => {
             onRemoveFile={handleRemoveFile}
             messagesEndRef={messagesEndRef}
           />
+        </main>
 
-          {/* Chat Input */}
+        {/* 3) Input bar */}
+        <footer className="px-6 py-4 bg-transparent">
           <ChatInput
             onSendMessage={handleSendMessage}
             onFileUpload={handleFileUpload}
             disabled={isTyping || showAnalysisFlow}
           />
-        </div>
-
-        {/* Analysis Flow Sidebar */}
-        <AnalysisSidebar
-          showAnalysisFlow={showAnalysisFlow}
-          hasUploadedFile={!!uploadedFile}
-          onComplete={handleAnalysisComplete}
-        />
+        </footer>
       </div>
+
+      {/* Analysis-flow sidebar */}
+      <AnalysisSidebar
+        showAnalysisFlow={showAnalysisFlow}
+        hasUploadedFile={!!uploadedFile}
+        onComplete={handleAnalysisComplete}
+      />
     </div>
   );
 };

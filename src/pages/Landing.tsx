@@ -26,7 +26,7 @@ const Landing = () => {
           {/* Centered Header Section with title and chatbar */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-6xl font-bold text-white mb-4">SCM AI Engine</h1>
-            <p className="text-xl text-blue-200 mb-8">Your intelligent supply chain management assistant.</p>
+            <p className="text-xl text-blue-200 mb-8">Anticipate. Adapt. Accelerate</p>
             
             {/* Centered Chatbar */}
             <div className="flex justify-center mb-12">
