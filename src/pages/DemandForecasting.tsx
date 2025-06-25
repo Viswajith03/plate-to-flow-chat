@@ -1,3 +1,4 @@
+
 // src/pages/DemandForecasting.tsx
 
 import React from 'react';
@@ -6,6 +7,7 @@ import { ArrowLeft } from 'lucide-react';
 import ChatMessages from '../components/ChatMessages';
 import ChatInput from '../components/ChatInput';
 import AnalysisSidebar from '../components/AnalysisSidebar';
+import DemandForecastingSuggestionCards from '../components/DemandForecastingSuggestionCards';
 import { useChat } from '../hooks/useChat';
 
 const DemandForecasting = () => {
@@ -23,13 +25,17 @@ const DemandForecasting = () => {
     handleAnalysisComplete,
   } = useChat();
 
+  const handleQuestionClick = (question: string) => {
+    handleSendMessage(question);
+  };
+
   return (
     <div className="h-screen flex bg-gradient-to-br from-[#1E1F38] to-[#2E2649]">
       {/* Main chat column */}
       <div className="flex flex-col flex-1 gradient-content min-w-0">
         
         {/* 1) Header */}
-        <header className="flex items-center justify-between px-6 py-4 bg-transparent">
+        <header className="flex items-center justify-between px-6 py-6 bg-transparent">
           <button
             onClick={() => navigate('/')}
             className="flex items-center space-x-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 transition-colors"
@@ -37,7 +43,7 @@ const DemandForecasting = () => {
             <ArrowLeft className="w-4 h-4 text-white" />
             <span className="text-white text-sm">Go Back</span>
           </button>
-          <h1 className="text-lg font-semibold text-white">
+          <h1 className="text-2xl font-semibold text-white">
             Demand Forecasting
           </h1>
           <div className="w-12" /> {/* spacer */}
@@ -45,6 +51,9 @@ const DemandForecasting = () => {
         
         {/* 2) Messages (scrollable) */}
         <main className="flex-1 overflow-y-auto px-6">
+          {messages.length === 0 && !uploadedFile && (
+            <DemandForecastingSuggestionCards onQuestionClick={handleQuestionClick} />
+          )}
           <ChatMessages
             messages={messages}
             isTyping={isTyping}
