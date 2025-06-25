@@ -108,7 +108,7 @@ const DemandForecastingSuggestionCards: React.FC<DemandForecastingSuggestionCard
       <h3 className="text-xl font-semibold text-white mb-4">
         Suggested Demand Forecasting Questions
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-5 grid-rows-2 gap-4">
         {suggestionCards.map((card, index) => (
           <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden">
             <button
