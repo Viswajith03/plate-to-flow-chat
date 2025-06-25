@@ -1,12 +1,14 @@
 
 import React from 'react';
-import ChatHeader from '../components/ChatHeader';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import ChatMessages from '../components/ChatMessages';
 import ChatInput from '../components/ChatInput';
 import AnalysisSidebar from '../components/AnalysisSidebar';
 import { useChat } from '../hooks/useChat';
 
 const Chat = () => {
+  const navigate = useNavigate();
   const {
     messages,
     isTyping,
@@ -21,14 +23,25 @@ const Chat = () => {
   } = useChat();
 
   return (
-    <div className="h-screen gradient-bg">
-      <div className="flex h-full">
-        {/* Main Content Area */}
-        <div className="flex flex-col flex-1 relative gradient-content min-w-0">
-          {/* Header */}
-          <ChatHeader />
+    <div className="h-screen flex bg-gradient-to-br from-[#1E1F38] to-[#2E2649]">
+      {/* Main chat column */}
+      <div className="flex flex-col flex-1 gradient-content min-w-0">
+        
+        {/* Header */}
+        <header className="flex items-center justify-between px-6 py-6 bg-transparent">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center space-x-2 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/20 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 text-white" />
+            <span className="text-white text-sm">Go Back</span>
+          </button>
+          <h1 className="text-2xl font-semibold text-white">SCM AI Chat</h1>
+          <div className="w-12" /> {/* spacer */}
+        </header>
 
-          {/* Messages Area */}
+        {/* Messages (scrollable) */}
+        <main className="flex-1 overflow-y-auto px-6">
           <ChatMessages
             messages={messages}
             isTyping={isTyping}
@@ -37,22 +50,24 @@ const Chat = () => {
             onRemoveFile={handleRemoveFile}
             messagesEndRef={messagesEndRef}
           />
+        </main>
 
-          {/* Chat Input */}
+        {/* Input bar */}
+        <footer className="px-6 py-4 bg-transparent">
           <ChatInput
             onSendMessage={handleSendMessage}
             onFileUpload={handleFileUpload}
             disabled={isTyping || showAnalysisFlow}
           />
-        </div>
-
-        {/* Analysis Flow Sidebar */}
-        <AnalysisSidebar
-          showAnalysisFlow={showAnalysisFlow}
-          hasUploadedFile={!!uploadedFile}
-          onComplete={handleAnalysisComplete}
-        />
+        </footer>
       </div>
+
+      {/* Analysis Flow Sidebar */}
+      <AnalysisSidebar
+        showAnalysisFlow={showAnalysisFlow}
+        hasUploadedFile={!!uploadedFile}
+        onComplete={handleAnalysisComplete}
+      />
     </div>
   );
 };
