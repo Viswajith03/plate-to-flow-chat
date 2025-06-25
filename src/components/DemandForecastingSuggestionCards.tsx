@@ -1,13 +1,6 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 interface SuggestionCard {
   title: string;
@@ -115,53 +108,39 @@ const DemandForecastingSuggestionCards: React.FC<DemandForecastingSuggestionCard
       <h3 className="text-xl font-semibold text-white mb-4">
         Suggested Demand Forecasting Questions
       </h3>
-      <div className="relative">
-        <Carousel
-          opts={{
-            align: "start",
-            loop: false,
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-4">
-            {suggestionCards.map((card, index) => (
-              <CarouselItem key={index} className="pl-4 basis-1/3 min-w-[300px]">
-                <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden h-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {suggestionCards.map((card, index) => (
+          <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden">
+            <button
+              onClick={() => toggleCard(index)}
+              className="w-full p-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+            >
+              <div className="flex items-center space-x-3">
+                <span className="text-lg">{card.icon}</span>
+                <h4 className="text-sm font-medium text-white">{card.title}</h4>
+              </div>
+              {expandedCard === index ? (
+                <ChevronDown className="w-4 h-4 text-white flex-shrink-0" />
+              ) : (
+                <ChevronRight className="w-4 h-4 text-white flex-shrink-0" />
+              )}
+            </button>
+            
+            {expandedCard === index && (
+              <div className="px-4 pb-4 space-y-2">
+                {card.questions.map((question, qIndex) => (
                   <button
-                    onClick={() => toggleCard(index)}
-                    className="w-full p-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
+                    key={qIndex}
+                    onClick={() => onQuestionClick(question)}
+                    className="w-full text-left p-2 text-sm text-blue-200 hover:text-white hover:bg-white/10 rounded transition-colors"
                   >
-                    <div className="flex items-center space-x-3">
-                      <span className="text-lg">{card.icon}</span>
-                      <h4 className="text-sm font-medium text-white">{card.title}</h4>
-                    </div>
-                    {expandedCard === index ? (
-                      <ChevronDown className="w-4 h-4 text-white flex-shrink-0" />
-                    ) : (
-                      <ChevronRight className="w-4 h-4 text-white flex-shrink-0" />
-                    )}
+                    {question}
                   </button>
-                  
-                  {expandedCard === index && (
-                    <div className="px-4 pb-4 space-y-2">
-                      {card.questions.map((question, qIndex) => (
-                        <button
-                          key={qIndex}
-                          onClick={() => onQuestionClick(question)}
-                          className="w-full text-left p-2 text-sm text-blue-200 hover:text-white hover:bg-white/10 rounded transition-colors"
-                        >
-                          {question}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-0 bg-white/10 border-white/20 text-white hover:bg-white/20" />
-          <CarouselNext className="right-0 bg-white/10 border-white/20 text-white hover:bg-white/20" />
-        </Carousel>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
